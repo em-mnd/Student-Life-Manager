@@ -33,6 +33,6 @@ def slm_main_menu():
             # Call the budget feature function here
         elif main_menu_choices == '6':
             print("Exiting the Student Life Manager. Goodbye!")
-            exit()
+            break
 
 slm_main_menu()

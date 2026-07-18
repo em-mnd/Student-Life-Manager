@@ -9,8 +9,7 @@ import main
 
 def tasks_menu():
     while True:
-        input("Welcome to the Tasks feature! Please select an option: \n1. Add Task\n2. Remove Task\n3. Update Task\n4. View Tasks\n5. Exit\n")
-        tasks_menu_choices = input(f"Enter your choice (1-5): ")
+        tasks_menu_choices = input("Welcome to the Tasks feature! Please select an option: \n1. Add Task\n2. Remove Task\n3. Update Task\n4. View Tasks\n5. Exit\n")
         if tasks_menu_choices not in ['1', '2', '3', '4', '5']:
             print("Invalid choice. Please try again.")
             tasks_menu()
@@ -24,26 +23,46 @@ def tasks_menu():
             view_tasks()
         elif tasks_menu_choices == '5':
             print("Exiting the Tasks feature. Returning to main menu.")
-            main.slm_main_menu()
+            return
 
 tasks_list = []
 
 def add_task():
-    input("Do you want to add a task? (y/n): ")
-    if input().lower() == 'y':
-        task_name = input("Enter the task name: ")
-        task_desc = input("Enter the task description: ")
-        task_priority = input("Enter the task priority (high/medium/low): ")
+    add_task_response = input(
+        "Do you want to add a task? (y/n): "
+    ).lower()
+    if add_task_response == "n":
+        print("Returning to tasks menu.")
+        return
+    if add_task_response == "y":
+        while True:
+            task_name = input("Enter the task name: ").strip()
+            if task_name == "":
+                print("Please write a name for your task.")
+                continue
+            break
+        task_desc = input(
+            "Enter the task description (Can be left blank): "
+        ).strip()
+        while True:
+            task_priority = input(
+                "Enter the task priority (high/medium/low): "
+            ).lower().strip()
+            if task_priority not in ["high", "medium", "low"]:
+                print("Please choose high, medium or low.")
+                continue
+            break
         tasks_list.append((task_name, task_desc, task_priority))
-        print(f"Task added: {task_name}\n Description: {task_desc}\n Priority level: {task_priority}\n")
-    elif input().lower() == 'n':
-        print("Returning to main menu.")
-        main.slm_main_menu()
+        print(
+            f"Task added: {task_name}\n"
+            f"Description: {task_desc}\n"
+            f"Priority level: {task_priority}"
+        )
 
 
 def remove_task():
-    input("Do you want to remove a task? (y/n): ")
-    if input().lower() == 'y':
+    remove_task_response = input("Do you want to remove a task? (y/n): ")
+    if remove_task_response.lower() == 'y':
         task_name = input("Enter the task name: ")
         for i, task in enumerate(tasks_list):
             if task[0] == task_name:
@@ -57,8 +76,8 @@ def remove_task():
 
 
 def update_task():
-    input("Do you want to update a task? (y/n): ")
-    if input().lower() == 'y':
+    update_task_response = input("Do you want to update a task? (y/n): ")
+    if update_task_response.lower() == 'y':
         #Show the list of tasks to user, it's more user friendly if they can see and pick a number
         print("Here are the tasks you have:")
         for i, task in enumerate(tasks_list):
@@ -75,8 +94,8 @@ def update_task():
 
 
 def view_tasks():
-    input("Do you want to view your tasks? (y/n): ")
-    if input().lower() == 'n':
+    view_task_response = input("Do you want to view your tasks? (y/n): ")
+    if view_task_response.lower() == 'n':
         print("Returning to main menu.")
         main.slm_main_menu()
     elif input().lower() == 'y':
@@ -84,3 +103,5 @@ def view_tasks():
             print("No tasks found.")
         else:
             print(tasks_list)
+
+tasks_menu()
