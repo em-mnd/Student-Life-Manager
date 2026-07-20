@@ -62,46 +62,64 @@ def add_task():
 
 def remove_task():
     remove_task_response = input("Do you want to remove a task? (y/n): ")
+    if not tasks_list:
+        print('No tasks to remove.\n Returning to Tasks menu.')
+        return
     if remove_task_response.lower() == 'y':
         task_name = input("Enter the task name: ")
         for i, task in enumerate(tasks_list):
             if task[0] == task_name:
                 tasks_list.pop(i)
                 print(f"Task removed: {task_name}")
+                break
         else:
             print("Task not found.")
-    elif input().lower() == 'n':
-        print("Returning to main menu.")
-        main.slm_main_menu()
+    elif remove_task_response.lower() == 'n':
+        print("Returning to Tasks menu.")
+        return
 
 
 def update_task():
     update_task_response = input("Do you want to update a task? (y/n): ")
+    if not tasks_list:
+        print("No tasks to update.\nReturning to Tasks menu.")
+        return
     if update_task_response.lower() == 'y':
-        #Show the list of tasks to user, it's more user friendly if they can see and pick a number
         print("Here are the tasks you have:")
         for i, task in enumerate(tasks_list):
             print(f"{i + 1}. {task[0]} - {task[1]} - {task[2]}")
-        task_index = int(input("Enter the number of the task you want to update: ")) - 1
+        try:
+            task_index = int(
+                input("Enter the number of the task you want to update: ")
+            ) - 1
+        except ValueError:
+            print("Please enter a valid task number.")
+            return
         if 0 <= task_index < len(tasks_list):
             task_name = input("Enter the new task name: ")
             task_notes = input("Enter the new task notes: ")
-            task_priority = input("Enter the new task priority (high/medium/low): ")
-            tasks_list[task_index] = (task_name, task_notes, task_priority)
+            task_priority = input(
+                "Enter the new task priority (high/medium/low): "
+            )
+            tasks_list[task_index] = (
+                task_name,
+                task_notes,
+                task_priority
+            )
             print(f"Task updated: {task_name}")
         else:
             print("Invalid task number.")
 
 
 def view_tasks():
+    if not tasks_list:
+        print('No tasks available to view.\n Returning to Tasks menu.')
+        return
     view_task_response = input("Do you want to view your tasks? (y/n): ")
     if view_task_response.lower() == 'n':
-        print("Returning to main menu.")
-        main.slm_main_menu()
-    elif input().lower() == 'y':
-        if not tasks_list:
-            print("No tasks found.")
-        else:
-            print(tasks_list)
+        print("Returning to Tasks menu.")
+        return
+    elif view_task_response.lower() == 'y':
+        print(tasks_list)
 
 tasks_menu()
