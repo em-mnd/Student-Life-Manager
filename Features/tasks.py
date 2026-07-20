@@ -63,18 +63,26 @@ def add_task():
 def remove_task():
     remove_task_response = input("Do you want to remove a task? (y/n): ")
     if not tasks_list:
-        print('No tasks to remove.\n Returning to Tasks menu.')
+        print("No tasks to remove.\nReturning to Tasks menu.")
         return
-    if remove_task_response.lower() == 'y':
-        task_name = input("Enter the task name: ")
+    if remove_task_response.lower() == "y":
+        print("Here are the tasks you have:")
         for i, task in enumerate(tasks_list):
-            if task[0] == task_name:
-                tasks_list.pop(i)
-                print(f"Task removed: {task_name}")
+            print(f"{i + 1}. {task[0]} - {task[1]} - {task[2]}")
+        while True:
+            try:
+                task_index = int(
+                    input("Enter the number of the task you want to remove: ")
+                ) - 1
+            except ValueError:
+                print("Please enter a valid task number.")
+                continue
+            if 0 <= task_index < len(tasks_list):
                 break
-        else:
-            print("Task not found.")
-    elif remove_task_response.lower() == 'n':
+            print("Invalid task number.")
+        removed_task = tasks_list.pop(task_index)
+        print(f"Task removed: {removed_task[0]}")
+    elif remove_task_response.lower() == "n":
         print("Returning to Tasks menu.")
         return
 
@@ -88,27 +96,34 @@ def update_task():
         print("Here are the tasks you have:")
         for i, task in enumerate(tasks_list):
             print(f"{i + 1}. {task[0]} - {task[1]} - {task[2]}")
-        try:
-            task_index = int(
-                input("Enter the number of the task you want to update: ")
-            ) - 1
-        except ValueError:
-            print("Please enter a valid task number.")
-            return
-        if 0 <= task_index < len(tasks_list):
-            task_name = input("Enter the new task name: ")
-            task_notes = input("Enter the new task notes: ")
-            task_priority = input(
-                "Enter the new task priority (high/medium/low): "
-            )
-            tasks_list[task_index] = (
-                task_name,
-                task_notes,
-                task_priority
-            )
-            print(f"Task updated: {task_name}")
-        else:
-            print("Invalid task number.")
+        while True:
+            try:
+                task_index = int(
+                    input("Enter the number of the task you want to update: ")
+                ) - 1
+            except ValueError:
+                print("Please enter a valid task number.")
+                continue
+            
+            if 0 <= task_index < len(tasks_list):
+                break
+            
+            print('Invalid tasks number.')
+            
+        task_name = input("Enter the new task name: ")
+        task_notes = input("Enter the new task notes: ")
+        task_priority = input(
+            "Enter the new task priority (high/medium/low): "
+        )
+        tasks_list[task_index] = (
+            task_name,
+            task_notes,
+            task_priority
+        )
+        print(f"Task updated: {task_name}")
+    elif update_task_response.lower() == 'n':
+        print('Returning to Tasks menu')
+        return
 
 
 def view_tasks():
