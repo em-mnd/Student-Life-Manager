@@ -93,6 +93,14 @@ def remove_task():
             print("Invalid task number.")
         removed_task = tasks_list.pop(task_index)
         print(f"Task removed: {removed_task[0]}")
+        while True:
+            retry_response = input("Do you want to remove another task? (y/n): ").lower().strip()
+            if retry_response == "y":
+                print("Restarting function...")
+                continue
+            elif retry_response == "n":
+                print("Returning to Tasks menu...")
+                return
     elif remove_task_response.lower() == "n":
         print("Returning to Tasks menu.")
         return
@@ -140,6 +148,14 @@ def update_task():
             f"Description: {task_desc}\n"
             f"Priority level: {task_priority}"
         )
+        while True:
+            retry_response = input("Do you want to update another task? (y/n): ").lower().strip()
+            if retry_response == "y":
+                print("Restarting function...")
+                continue
+            elif retry_response == "n":
+                print("Returning to Tasks menu...")
+                return
     elif update_task_response.lower() == 'n':
         print('Returning to Tasks menu')
         return
