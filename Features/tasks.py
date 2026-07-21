@@ -24,7 +24,7 @@ def tasks_menu():
         elif tasks_menu_choices == '4':
             view_tasks()
         elif tasks_menu_choices == '5':
-            print("Exiting the Tasks feature. Returning to main menu.")
+            print("Exiting the Tasks menu. Returning to main menu.")
             return
 
 tasks_list = []

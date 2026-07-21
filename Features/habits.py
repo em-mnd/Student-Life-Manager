@@ -12,38 +12,39 @@ habits_list = []
 
 def habits_menu():
     while True:
-        input("Welcome to the Habits feature! Please choose an option: \n1. Add habit\n2. Remove habit\n3. Update habit\n4. View all habits\n5. Exit\n")
-        habits_choice = input(f"Enter your choice (1-5): ")
+        habits_choice = input("Welcome to the Habits feature! Please choose an option: \n1. Add habit\n2. Remove habit\n3. Update habit\n4. View all habits\n5. Complete habit\n6. Exit\n")
         if habits_choice not in ['1', '2', '3', '4', '5']:
             print("Invalid choice. Please try again.")
             habits_menu()
         elif habits_choice == '1':
             add_habit()
         elif habits_choice == '2':
-            pass
+            remove_habit()
         elif habits_choice == '3':
-            pass
+            update_habit
         elif habits_choice == '4':
-            pass
+            view_habits()
         elif habits_choice == '5':
-            print('Exiting the Habits feature. Returning to main menu.')
-            main.slm_main_menu()
+            complete_habit()
+        elif habits_choice == '6':
+            print('Exiting the Habits menu. Returning to main menu.')
+            return
 
 def add_habit():
-    input("Do you want to add an habit ? (y/n): ")
-    if input().lower() == 'y':
+    add_habit_choice = input("Do you want to add an habit ? (y/n): ")
+    if add_habit_choice.lower() == 'y':
         habit_name = input("Enter the habit name: ")
         habit_priority = input("Enter the habit priority: ")
         habits_list.append(habit_name, habit_priority)
         print(f'Habit added: {habit_name}\n Priority: {habit_priority}\n')
-    elif input().lower() == 'n':
-        print('Returning to main menu.')
-        main.slm_main_menu()
+    elif add_habit_choice.lower() == 'n':
+        print('Returning to Habit menu.')
+        return
 
 
 def remove_habit():
-    input("Do you want to remove an habit ? (y/n): ")
-    if input().lower() == 'y':
+    remove_habit_choice = input("Do you want to remove an habit ? (y/n): ")
+    if remove_habit_choice.lower() == 'y':
         habit_name = input("Which habit do you want to delete ?: ")
         for i, habit in enumerate(habits_list):
             if habit[0] == habit_name:
@@ -51,14 +52,14 @@ def remove_habit():
                 print(f'Habit removed: {habit_name}')
         else:
             print('Habit not found.')
-    elif input().lower() == 'n':
-        print("Returning to main menu.")
-        main.slm_main_menu
+    elif remove_habit_choice.lower() == 'n':
+        print("Returning to Habits menu.")
+        return
 
 
 def update_habit():
-    input('Do you want to update a task ? (y/n): ')
-    if input().lower() == 'y':
+    update_habit_choice = input('Do you want to update a task ? (y/n): ')
+    if update_habit_choice.lower() == 'y':
         print("Here are the habits you have: ")
         for i, habit in enumerate(habits_list):
             print(f'{i + 1}. {habit[0:]}')
@@ -66,8 +67,18 @@ def update_habit():
         if 0 <= habit_index < len(habits_list):
             habit_name = input("Enter the new habit name: ")
             habit_priority = input("Enter the new priority level: ")
-            print(f"Habit updated: {habit_name}")
+            print(
+                f"Habit updated: {habit_name}"
+                f"Priority level updated: {habit_priority}")
         else:
             print("Invalid habit number")
+    if update_habit_choice == 'n':
+        print('Returning to Habits menu.')
+        return
 
 
+def view_habits():
+    pass
+
+def complete_habit():
+    pass
