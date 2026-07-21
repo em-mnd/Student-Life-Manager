@@ -108,19 +108,27 @@ def update_task():
             if 0 <= task_index < len(tasks_list):
                 break
             
-            print('Invalid tasks number.')
-            
-        task_name = input("Enter the new task name: ")
-        task_notes = input("Enter the new task notes: ")
+            print('Invalid task number.')  
+        while True:
+            task_name = input("Enter the new task name: ").strip()
+            if task_name == "":
+                print("Please write a name for your task.")
+                continue
+            break
+        task_desc = input("Enter the new task description: ")
         task_priority = input(
             "Enter the new task priority (high/medium/low): "
         )
         tasks_list[task_index] = (
             task_name,
-            task_notes,
+            task_desc,
             task_priority
         )
-        print(f"Task updated: {task_name}")
+        print(
+            f"Task added: {task_name}\n"
+            f"Description: {task_desc}\n"
+            f"Priority level: {task_priority}"
+        )
     elif update_task_response.lower() == 'n':
         print('Returning to Tasks menu')
         return
