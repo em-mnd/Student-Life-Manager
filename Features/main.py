@@ -16,7 +16,9 @@ def slm_main_menu():
         if main_menu_choices not in ['1', '2', '3', '4', '5', '6']:
             print("Invalid choice. Please try again.")
             continue
-        elif main_menu_choices == '1':
+        break
+    while True:
+        if main_menu_choices == '1':
             print("You selected Tasks.")
             tasks.tasks_menu()
         elif main_menu_choices == '2':

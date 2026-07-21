@@ -12,8 +12,10 @@ def tasks_menu():
         tasks_menu_choices = input("Welcome to the Tasks feature! Please select an option: \n1. Add Task\n2. Remove Task\n3. Update Task\n4. View Tasks\n5. Exit\n")
         if tasks_menu_choices not in ['1', '2', '3', '4', '5']:
             print("Invalid choice. Please try again.")
-            tasks_menu()
-        elif tasks_menu_choices == '1':
+            continue
+        break
+    while True:
+        if tasks_menu_choices == '1':
             add_task()
         elif tasks_menu_choices == '2':
             remove_task()
@@ -58,6 +60,15 @@ def add_task():
             f"Description: {task_desc}\n"
             f"Priority level: {task_priority}"
         )
+    while True:
+        retry_response = input("Do you want to add another task? (y/n): ").lower().strip()
+        if retry_response == "y":
+            print("Restarting function...")
+            continue
+        elif retry_response == "n":
+            print("Returning to Tasks menu...")
+            return
+
 
 
 def remove_task():
@@ -143,6 +154,14 @@ def view_tasks():
         print("Returning to Tasks menu.")
         return
     elif view_task_response.lower() == 'y':
-        print(tasks_list)
+        print("\n=== TASKS ===")
+        
+        for i, task in enumerate(tasks_list):
+            print(
+                f"\n{i + 1}. {task[0]}\n"
+                f"    Description: {task[1]}"
+                f"    Priority: {task[2]}"
+            )
+        print("\n=============")
 
 tasks_menu()
