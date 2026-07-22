@@ -21,40 +21,83 @@ def habits_menu():
         elif habits_choice == '2':
             remove_habit()
         elif habits_choice == '3':
-            update_habit
+            update_habit()
         elif habits_choice == '4':
             view_habits()
         elif habits_choice == '5':
             complete_habit()
         elif habits_choice == '6':
-            print('Exiting the Habits menu. Returning to main menu.')
+            print('Exiting the Habits menu. Returning to main menu...')
             return
 
 def add_habit():
-    add_habit_choice = input("Do you want to add an habit ? (y/n): ")
-    if add_habit_choice.lower() == 'y':
-        habit_name = input("Enter the habit name: ")
-        habit_priority = input("Enter the habit priority: ")
-        habits_list.append(habit_name, habit_priority)
-        print(f'Habit added: {habit_name}\n Priority: {habit_priority}\n')
-    elif add_habit_choice.lower() == 'n':
-        print('Returning to Habit menu.')
+    add_habit_choice = input("Do you want to add an habit ? (y/n): ").lower()
+    if add_habit_choice == 'n':
+        print('Returning to Habit menu...')
         return
+    if add_habit_choice == 'y':
+        while True:
+            habit_name = input("Enter the habit name: ").strip()
+            if habit_name == '':
+                print('Please write a name for your habit.')
+                continue
+            break
+        while True:
+            habit_priority = input("Enter the habit priority (high/medium/low): ").lower().strip()
+            if habit_priority not in ["high", "medium", "low"]:
+                print('Please choose high, medium or low.')
+                continue
+            break
+        habits_list.append((habit_name, habit_priority))
+        print(
+            f"Habit added: {habit_name}\n"
+            f"Priority level: {habit_priority}"
+        )
+    while True:
+        retry_response = input('Do you want to add another habit ? (y/n): ').lower().strip()
+        if retry_response == 'y':
+            print('Restarting...')
+            continue
+        elif retry_response == 'n':
+            print('Returning to Habits menu...')
+            return
 
 
 def remove_habit():
-    remove_habit_choice = input("Do you want to remove an habit ? (y/n): ")
-    if remove_habit_choice.lower() == 'y':
-        habit_name = input("Which habit do you want to delete ?: ")
-        for i, habit in enumerate(habits_list):
-            if habit[0] == habit_name:
-                habits_list.pop(i)
-                print(f'Habit removed: {habit_name}')
-        else:
-            print('Habit not found.')
-    elif remove_habit_choice.lower() == 'n':
+    remove_habit_choice = input("Do you want to remove an habit ? (y/n): ").lower().strip()
+    if not habits_list:
+        print("No habits to remove. Returning to Habits menu...")
+        return
+    if remove_habit_choice == 'n':
         print("Returning to Habits menu.")
         return
+    if remove_habit_choice == 'y':
+        print("Here are the habits you have:")
+        habit_name = input("Which habit do you want to delete ?: ")
+        for i, habit in enumerate(habits_list):
+            print(
+                f"{i + 1}. {habit[0]}\n"
+                f"    Priority: {habit[1]}"
+                )
+        while True:
+            try:
+                habit_index = int(input("Enter the number of the habit you want to remove: ")) - 1
+            except  ValueError:
+                print("Please enter a valid habit number.")
+                continue
+            if 0 <= habit_index < len(habits_list):
+                break
+            print("Invalid habit number.")
+        removed_habit = habits_list.pop(habit_index)
+        print(f"Habit removed: {removed_habit[0]}")
+        while True:
+            retry_response = input("Do you want to remove another habit ? (y/n): " ).lower().strip()
+            if retry_response == 'y':
+                print("Restarting...")
+                continue
+            elif retry_response== 'n':
+                print("Returning to Habits menu...")
+                return
 
 
 def update_habit():
