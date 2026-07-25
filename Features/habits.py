@@ -101,24 +101,7 @@ def remove_habit():
 
 
 def update_habit():
-    update_habit_choice = input('Do you want to update a task ? (y/n): ')
-    if update_habit_choice.lower() == 'y':
-        print("Here are the habits you have: ")
-        for i, habit in enumerate(habits_list):
-            print(f'{i + 1}. {habit[0:]}')
-        habit_index = int(input("Enter the number of the habit you want to update: "))
-        if 0 <= habit_index < len(habits_list):
-            habit_name = input("Enter the new habit name: ")
-            habit_priority = input("Enter the new priority level: ")
-            print(
-                f"Habit updated: {habit_name}"
-                f"Priority level updated: {habit_priority}")
-        else:
-            print("Invalid habit number")
-    if update_habit_choice == 'n':
-        print('Returning to Habits menu.')
-        return
-
+    pass
 
 def view_habits():
     pass
