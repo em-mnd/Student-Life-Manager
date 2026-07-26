@@ -48,10 +48,23 @@ def add_habit():
                 print('Please choose high, medium or low.')
                 continue
             break
-        habits_list.append((habit_name, habit_priority))
+        while True:
+            habit_status = input('Have you completed this habit already ? (y/n): ').lower().strip()
+            if habit_status not in ['y', 'n']:
+                print('Please answer (y)es or (n)o.')
+                continue
+            break
+        if habit_status == 'y':
+            completion_status = True
+            print('You have completed this habit for today !')
+        if habit_status == 'n':
+            completion_status = False
+            print('This habit has not been completed yet.')
+        habits_list.append((habit_name, habit_priority, completion_status))
         print(
             f"Habit added: {habit_name}\n"
-            f"Priority level: {habit_priority}"
+            f"Priority level: {habit_priority}\n"
+            f"Status: {completion_status}"
         )
     while True:
         retry_response = input('Do you want to add another habit ? (y/n): ').lower().strip()
@@ -73,11 +86,12 @@ def remove_habit():
         return
     if remove_habit_choice == 'y':
         print("Here are the habits you have:")
-        habit_name = input("Which habit do you want to delete ?: ")
+        input("Which habit do you want to delete ?: ")
         for i, habit in enumerate(habits_list):
             print(
                 f"{i + 1}. {habit[0]}\n"
                 f"    Priority: {habit[1]}"
+                f"    Status: {habit[2]}"
                 )
         while True:
             try:
@@ -107,4 +121,30 @@ def view_habits():
     pass
 
 def complete_habit():
-    pass
+    while True:
+        if not habits_list:
+            print('No habits to complete. Returning to menu...')
+            return
+        else:
+            print("\n==== HABITS ====")
+            for i, habit in enumerate(habits_list):
+                print(
+                    f"\n{i + 1}. {habit[0]}\n"
+                    f"    Priority : {habit[1]}"
+                    f"    Status : Not complete"
+                )
+            
+            print("\n==============")
+            while True:
+                try:
+                    habit_index = int(
+                        input('Enter the number of the habit you want to mark as completed: ')
+                    ) - 1
+                except ValueError:
+                    print('Please enter a valid habit number.')
+                    continue
+                if 0 <= habit_index < len(habits_list):
+                    break
+                
+                print('Invalid habit number.')
+            # I want to mark the habit as completed after the user inputs the right number but I don't know how to do so, myb use a class so that i can have 'Complete ?: False' then user says they completed the habit and it becomes 'True' and shows as 'Completed'.
