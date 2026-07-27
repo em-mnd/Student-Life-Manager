@@ -115,7 +115,39 @@ def remove_habit():
 
 
 def update_habit():
-    pass
+    if not habits_list:
+        print('No habits to update.\nReturning to Habits menu...')
+        return
+    else:
+        update_habit_response = input('Do you want to update a habit ? (y/n): ').lower().strip()
+        if update_habit_response == 'y':
+            print('Here are the habits you have:')
+            for i, habit in enumerate(habits_list):
+                print(
+                    f"{i + 1}. {habit[0]}\n"
+                    f"      {habit[1]}\n"
+                    f"      {habit[2]}\n"
+                    )
+            while True:
+                try:
+                    habit_index = int(
+                        input("Enter the number of the habit you want to update: ").lower().strip()
+                    ) - 1
+                except ValueError:
+                    print('Please enter a valid habit number.')
+                    continue
+                
+                if 0 <= habit_index < len(habits_list):
+                    break
+                
+                print('Invalid habit number.')
+                
+            while True:
+                habit_name = input('Enter the new name of your habit: ').strip()
+                if habit_name == "":
+                    print("Please write a name for your habit.")
+                    continue
+                break
 
 def view_habits():
     pass
