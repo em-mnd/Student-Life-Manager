@@ -15,7 +15,7 @@ def habits_menu():
         habits_choice = input("Welcome to the Habits feature! Please choose an option: \n1. Add habit\n2. Remove habit\n3. Update habit\n4. View all habits\n5. Complete habit\n6. Exit\n")
         if habits_choice not in ['1', '2', '3', '4', '5']:
             print("Invalid choice. Please try again.")
-            habits_menu()
+            return
         elif habits_choice == '1':
             add_habit()
         elif habits_choice == '2':
