@@ -150,7 +150,20 @@ def update_habit():
                 break
 
 def view_habits():
-    pass
+    if not habits_list:
+        print('No habits available to view.\nReturning to Habits menu...')
+        return
+    print('\n==== HABITS ====')
+
+    for i, habit in enumerate(habits_list):
+        status = "Completed" if habit[2] else "Not complete"
+        print(
+            f"\n{i + 1}. {habit[0]}\n"
+            f"    Priority : {habit[1]}"
+            f"    Status : {status}"
+        )
+
+    print("\n==============")
 
 def complete_habit():
     while True:
@@ -162,7 +175,7 @@ def complete_habit():
             for i, habit in enumerate(habits_list):
                 print(
                     f"\n{i + 1}. {habit[0]}\n"
-                    f"    Priority : {habit[1]}"
+                    f"    Priority : {habit[1]}\n"
                     f"    Status : Not complete"
                 )
             
@@ -180,3 +193,5 @@ def complete_habit():
                 
                 print('Invalid habit number.')
             # I want to mark the habit as completed after the user inputs the right number but I don't know how to do so, myb use a class so that i can have 'Complete ?: False' then user says they completed the habit and it becomes 'True' and shows as 'Completed'.
+
+habits_menu()
