@@ -165,12 +165,6 @@ def view_tasks():
     if not tasks_list:
         print('No tasks available to view.\n Returning to Tasks menu.')
         return
-    view_task_response = input("Do you want to view your tasks? (y/n): ")
-    if view_task_response.lower() == 'n':
-        print("Returning to Tasks menu.")
-        return
-    elif view_task_response.lower() == 'y':
-        print("\n=== TASKS ===")
         
         for i, task in enumerate(tasks_list):
             print(
