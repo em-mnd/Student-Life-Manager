@@ -1,6 +1,5 @@
-import tasks
-import notes
-import habits
+from tasks import *
+from habits import *
 
 # Display the main menu options to the user
 
@@ -20,10 +19,10 @@ def slm_main_menu():
     while True:
         if main_menu_choices == '1':
             print("You selected Tasks.")
-            tasks.tasks_menu()
+            tasks_menu()
         elif main_menu_choices == '2':
             print("You selected Habits.")
-            habits.habits_menu()
+            habits_menu()
         elif main_menu_choices == '3':
             print("You selected Deadlines.")
             # Call the deadlines feature function here
