@@ -19,12 +19,12 @@ Debug session :
 ## 13/08/2026
 
 Debug session — solution for the 11/08/2026:
-After testing the files and looking further into the issue, I understood that the main problem was indeed related to circular imports, but not because I had written import tasks, habits on the same line.
-The actual circular import came from main.py importing tasks.py and habits.py, while both tasks.py and habits.py were also importing main.py.
-I removed import main from both the tasks and habits files so the imports now only go one way: main.py imports the feature files, but the feature files do not import main.py back.
-I also noticed that tasks_menu() and habits_menu() were both being called at the bottom of their respective files. Since Python executes the code inside a file when it is imported, this explained why the Habits menu appeared immediately even though I had not selected it from the main menu.
-I removed those calls from the bottom of both files and kept slm_main_menu() in main.py as the entry point of the program.
-I changed the imports in the main file so I could access the feature menus through their respective modules and keep it clearer which function belonged to which file.
-The issue with option 6 in the Habits menu was fixed by adding '6' to the list of accepted choices. It can now properly exit the Habits menu instead of first returning "Invalid choice".
-I also understood why exiting the Habits menu was still somehow taking me back to the main menu before I had fixed everything: habits_menu() had originally been called from the main menu, so once it reached return, Python continued from where that function had been called.
-After applying the changes, the program now opens with the Student Life Manager main menu as intended. The Tasks and Habits menus are only opened once I select them, and exiting either feature correctly returns me to the main menu.
+- After testing the files and looking further into the issue, I understood that the main problem was indeed related to circular imports, but not because I had written import tasks, habits on the same line.
+- The actual circular import came from main.py importing tasks.py and habits.py, while both tasks.py and habits.py were also importing main.py.
+- I removed import main from both the tasks and habits files so the imports now only go one way: main.py imports the feature files, but the feature files do not import main.py back.
+- I also noticed that tasks_menu() and habits_menu() were both being called at the bottom of their respective files. Since Python executes the code inside a file when it is imported, this explained why the Habits menu appeared immediately even though I had not selected it from the main menu.
+- I removed those calls from the bottom of both files and kept slm_main_menu() in main.py as the entry point of the program.
+- I changed the imports in the main file so I could access the feature menus through their respective modules and keep it clearer which function belonged to which file.
+- The issue with option 6 in the Habits menu was fixed by adding '6' to the list of accepted choices. It can now properly exit the Habits menu instead of first returning "Invalid choice".
+- I also understood why exiting the Habits menu was still somehow taking me back to the main menu before I had fixed everything: habits_menu() had originally been called from the main menu, so once it reached return, Python continued from where that function had been called.
+- After applying the changes, the program now opens with the Student Life Manager main menu as intended. The Tasks and Habits menus are only opened once I select them, and exiting either feature correctly returns me to the main menu.
