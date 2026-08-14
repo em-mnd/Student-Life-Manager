@@ -1,4 +1,3 @@
-import main
 
 # Daily habits are saved here (add, remove, update, view, complete today)
 
@@ -12,7 +11,7 @@ habits_list = []
 
 def habits_menu():
     while True:
-        habits_choice = input("Welcome to the Habits feature! Please choose an option: \n1. Add habit\n2. Remove habit\n3. Update habit\n4. View all habits\n5. Complete habit\n6. Exit\n")
+        habits_choice = input("Welcome to the Habits menu! Please choose an option: \n1. Add habit\n2. Remove habit\n3. Update habit\n4. View all habits\n5. Complete habit\n6. Exit\n")
         if habits_choice not in ['1', '2', '3', '4', '5', '6']:
             print("Invalid choice. Please try again.")
             return
@@ -194,4 +193,3 @@ def complete_habit():
                 print('Invalid habit number.')
             # I want to mark the habit as completed after the user inputs the right number but I don't know how to do so, myb use a class so that i can have 'Complete ?: False' then user says they completed the habit and it becomes 'True' and shows as 'Completed'.
 
-habits_menu()

@@ -1,4 +1,3 @@
-import main
 
 # Everything related to tasks (add, remove, update, view, complete)
 
@@ -7,15 +6,15 @@ import main
 
 # I could filter completed tasks but that is for later.
 
+tasks_list = []
+
 def tasks_menu():
     while True:
         tasks_menu_choices = input("Welcome to the Tasks feature! Please select an option: \n1. Add Task\n2. Remove Task\n3. Update Task\n4. View Tasks\n5. Exit\n")
         if tasks_menu_choices not in ['1', '2', '3', '4', '5']:
             print("Invalid choice. Please try again.")
-            continue
-        break
-    while True:
-        if tasks_menu_choices == '1':
+            return
+        elif tasks_menu_choices == '1':
             add_task()
         elif tasks_menu_choices == '2':
             remove_task()
@@ -27,7 +26,7 @@ def tasks_menu():
             print("Exiting the Tasks menu. Returning to main menu.")
             return
 
-tasks_list = []
+
 
 def add_task():
     add_task_response = input(
@@ -166,12 +165,11 @@ def view_tasks():
         print('No tasks available to view.\n Returning to Tasks menu.')
         return
         
-        for i, task in enumerate(tasks_list):
-            print(
-                f"\n{i + 1}. {task[0]}\n"
-                f"    Description: {task[1]}"
-                f"    Priority: {task[2]}"
-            )
-        print("\n=============")
+    for i, task in enumerate(tasks_list):
+        print(
+            f"\n{i + 1}. {task[0]}\n"
+            f"    Description: {task[1]}\n"
+            f"    Priority: {task[2]}"
+        )
+    print("\n=============")
 
-tasks_menu()
