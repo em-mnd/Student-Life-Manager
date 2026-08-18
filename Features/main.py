@@ -1,5 +1,6 @@
 import tasks
 import habits
+import deadlines
 # Display the main menu options to the user
 
 # Print menu options and ask for input
@@ -13,10 +14,8 @@ def slm_main_menu():
         main_menu_choices = input("Welcome to the Student Life Manager! Please select a feature to use: \n1. Tasks\n2. Habits\n3. Deadlines\n4. Notes\n5. Budget\n6. Exit\nEnter your choice (1-6): ")
         if main_menu_choices not in ['1', '2', '3', '4', '5', '6']:
             print("Invalid choice. Please try again.")
-            continue
-        break
-    while True:
-        if main_menu_choices == '1':
+            return
+        elif main_menu_choices == '1':
             print("You selected Tasks.")
             tasks.tasks_menu()
         elif main_menu_choices == '2':
@@ -24,7 +23,7 @@ def slm_main_menu():
             habits.habits_menu()
         elif main_menu_choices == '3':
             print("You selected Deadlines.")
-            # Call the deadlines feature function here
+            deadlines.deadlines_menu()
         elif main_menu_choices == '4':
             print("You selected Notes.")
             # Call the notes feature function here

@@ -55,6 +55,7 @@ def add_task():
             break
         tasks_list.append((task_name, task_desc, task_priority))
         print(
+            f"Task added successfully!\n"
             f"Task added: {task_name}\n"
             f"Description: {task_desc}\n"
             f"Priority level: {task_priority}"

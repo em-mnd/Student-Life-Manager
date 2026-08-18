@@ -61,6 +61,7 @@ def add_habit():
             print('This habit has not been completed yet.')
         habits_list.append((habit_name, habit_priority, completion_status))
         print(
+            f"\nHabit added successfully!\n"
             f"Habit added: {habit_name}\n"
             f"Priority level: {habit_priority}\n"
             f"Status: {completion_status}"

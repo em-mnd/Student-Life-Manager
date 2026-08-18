@@ -4,13 +4,11 @@ from datetime import datetime, date
 
 def deadlines_menu():
     while True:
-        deadlines_choice = print('Welcome to the Deadlines menu! Please choose an option: \n1. Add deadline\n2. Remove deadline\n3. Update deadline\n4. View all deadlines\n5. Complete deadline\n6. Exit\n')
+        deadlines_choice = input('Welcome to the Deadlines menu! Please choose an option: \n1. Add deadline\n2. Remove deadline\n3. Update deadline\n4. View all deadlines\n5. Complete deadline\n6. Exit\n')
         if deadlines_choice not in ['1', '2', '3', '4', '5', '6']:
             print("Invalid choice. Please try again.")
-            continue
-        break
-    while True:
-        if deadlines_choice == '1':
+            return
+        elif deadlines_choice == '1':
             add_deadline()
         elif deadlines_choice == '2':
             remove_deadline()
@@ -60,23 +58,31 @@ def add_deadline():
                 print("Please enter a valid date using YYYY/MM/DD.")
                 continue
             break
-            remaining_days = (due_date - date.today()).days
-            if due_date < today:
-                status = f"Overdue by {remaining_days} days"
-            if due_date > today:
-                status = f"Due in {remaining_days} days"
-            elif due_date == today:
-                status = "Due today"
-            else:
-                status = f"Pending - {remaining_days} days remaining"
-        deadlines_list.append((deadline_name, deadline_priority, deadline_description, due_date))
-        print(
-            f"Deadline added: {deadline_name}\n"
-            f"Priority level: {deadline_priority}\n"
-            f"Description: {deadline_description}\n"
-            f"Due date: {due_date}"
-            f"Status: {status}"
-        )
+        remaining_days = (due_date - date.today()).days
+        today = date.today()
+        if due_date < today:
+            status = f"Overdue by {remaining_days} days"
+        elif due_date == today:
+            status = "Due today"
+        else:
+            status = f"Pending - {remaining_days} days remaining"
+    deadlines_list.append((deadline_name, deadline_priority, deadline_description, due_date))
+    print(
+        f"\nDeadline added successfully!\n"
+        f"Deadline added: {deadline_name}\n"
+        f"Priority level: {deadline_priority}\n"
+        f"Description: {deadline_description}\n"
+        f"Due date: {due_date}\n"
+        f"Status: {status}"
+    )
+    retry_response = input('Do you want to add another deadline ? (y/n): ').lower().strip()
+    while True:
+        if retry_response == "y":
+            print("Restarting...")
+            continue
+        elif retry_response == "n":
+            print("Returning to Deadlines menu...")
+            return
 
 def remove_deadline():
     pass
