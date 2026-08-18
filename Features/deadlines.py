@@ -1,3 +1,5 @@
+import datetime
+
 # So as of now I still don't know how to manipulate dates, I still am figuring out how I will proceed to manage these deadlines.
 
 def deadlines_menu():
@@ -45,6 +47,12 @@ def add_deadline():
                 print('Please choose high, medium or low.')
                 continue
             break
+        today = datetime.today()
+        while True:
+            deadline_due_date = input('Enter the due date of this deadline (YYYY/MM/DD): ')
+            if deadline_due_date == "":
+                print('Please enter a valid format.')
+                continue
         while True:
             deadlines_list.append((deadline_name, deadline_priority, deadline_description))
             print(
