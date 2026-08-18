@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, date
 
 # So as of now I still don't know how to manipulate dates, I still am figuring out how I will proceed to manage these deadlines.
 
@@ -47,19 +47,36 @@ def add_deadline():
                 print('Please choose high, medium or low.')
                 continue
             break
-        today = datetime.today()
         while True:
-            deadline_due_date = input('Enter the due date of this deadline (YYYY/MM/DD): ')
-            if deadline_due_date == "":
-                print('Please enter a valid format.')
+            deadline_due_date = input(
+                "Enter the due date of this deadline (YYYY/MM/DD): "
+            ).strip()
+            try:
+                due_date = datetime.strptime(
+                    deadline_due_date,
+                    "%Y/%m/%d"
+                ).date()
+            except ValueError:
+                print("Please enter a valid date using YYYY/MM/DD.")
                 continue
-        while True:
-            deadlines_list.append((deadline_name, deadline_priority, deadline_description))
-            print(
-                f"Deadline added: {deadline_name}\n"
-                f"Priority level: {deadline_priority}\n"
-                f"Description: {deadline_description}"
-            )
+            break
+            remaining_days = (due_date - date.today()).days
+            if due_date < today:
+                status = f"Overdue by {remaining_days} days"
+            if due_date > today:
+                status = f"Due in {remaining_days} days"
+            elif due_date == today:
+                status = "Due today"
+            else:
+                status = f"Pending - {remaining_days} days remaining"
+        deadlines_list.append((deadline_name, deadline_priority, deadline_description, due_date))
+        print(
+            f"Deadline added: {deadline_name}\n"
+            f"Priority level: {deadline_priority}\n"
+            f"Description: {deadline_description}\n"
+            f"Due date: {due_date}"
+            f"Status: {status}"
+        )
 
 def remove_deadline():
     pass
