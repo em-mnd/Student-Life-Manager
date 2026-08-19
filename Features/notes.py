@@ -6,7 +6,7 @@ categories = []
 def notes_menu():
     while True:
         notes_choice = input("Welcome to the Notes menu ! Please choose an option: \n1. Add note\n2. Remove note\n3. Update note\n4. View all notes\n5. Categories\n6. Exit")
-        if note_choice not in [1, 2, 3, 4, 5]:
+        if notes_choice not in [1, 2, 3, 4, 5]:
             print("Invalid input, please try again.")
             return
         elif notes_choice == '1':
