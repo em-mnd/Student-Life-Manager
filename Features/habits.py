@@ -85,8 +85,7 @@ def remove_habit():
         print("Returning to Habits menu.")
         return
     if remove_habit_choice == 'y':
-        print("Here are the habits you have:")
-        input("Which habit do you want to delete ?: ")
+        print("Here are the habits you have...")
         for i, habit in enumerate(habits_list):
             print(
                 f"{i + 1}. {habit[0]}\n"
