@@ -85,14 +85,14 @@ def add_deadline():
             return
 
 def remove_deadline():
-    remove_deadline_choice = input('Do you want to remove a deadline ? (y/n): ').strip().lower()
     if not deadlines_list:
         print("No deadlines available. Returning to Deadlines menu...")
         return
+    remove_deadline_choice = input('Do you want to remove a deadline ? (y/n): ').strip().lower()
     if remove_deadline_choice == 'n':
         print('Returning to Deadlines menu...')
         return
-    if remove_deadlines_choice == 'y':
+    if remove_deadline_choice == 'y':
         print('Here are the deadlines you have...')
         for i, deadline in enumerate(deadlines_list):
             print(
@@ -100,7 +100,6 @@ def remove_deadline():
                 f"    Priority: {deadline[1]}\n"
                 f"    Description: {deadline[2]}\n"
                 f"    Due date: {deadline[3]}\n"
-                f"    Status:{deadline[4]}"
             )
         while True:
             try:
@@ -108,19 +107,18 @@ def remove_deadline():
             except ValueError:
                 print('Please enter a valid deadline number.')
                 continue
-            if 0 <= deadline_index < len(deadline_index):
+            if 0 <= deadline_index < len(deadlines_list):
                 break
             print("Invalid deadline number.")
         removed_deadline = deadlines_list.pop(deadline_index)
         print(f"Deadline removed: {removed_deadline[0]}")
-        while True:
-            retry_response = input('Do you want to remove another deadline ? (y/n): ').lower().strip()
-            if retry_response == 'y':
-                print('Restarting...')
-                continue
-            elif retry_response =='n':
-                print("Returning to Deadlines menu...")
-                return
+        retry_response = input('Do you want to remove another deadline ? (y/n): ').lower().strip()
+        if retry_response == 'y':
+            print('Restarting...')
+            continue
+        elif retry_response =='n':
+            print("Returning to Deadlines menu...")
+            return
 
 def update_deadline():
     pass

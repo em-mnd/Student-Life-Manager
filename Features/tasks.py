@@ -72,10 +72,10 @@ def add_task():
 
 
 def remove_task():
-    remove_task_response = input("Do you want to remove a task? (y/n): ")
     if not tasks_list:
         print("No tasks to remove.\nReturning to Tasks menu.")
         return
+    remove_task_response = input("Do you want to remove a task? (y/n): ")
     if remove_task_response.lower() == "y":
         print("Here are the tasks you have:")
         for i, task in enumerate(tasks_list):
@@ -93,14 +93,13 @@ def remove_task():
             print("Invalid task number.")
         removed_task = tasks_list.pop(task_index)
         print(f"Task removed: {removed_task[0]}")
-        while True:
-            retry_response = input("Do you want to remove another task? (y/n): ").lower().strip()
-            if retry_response == "y":
-                print("Restarting function...")
-                continue
-            elif retry_response == "n":
-                print("Returning to Tasks menu...")
-                return
+        retry_response = input("Do you want to remove another task? (y/n): ").lower().strip()
+        if retry_response == "y":
+            print("Restarting function...")
+            continue
+        elif retry_response == "n":
+            print("Returning to Tasks menu...")
+            return
     elif remove_task_response.lower() == "n":
         print("Returning to Tasks menu.")
         return

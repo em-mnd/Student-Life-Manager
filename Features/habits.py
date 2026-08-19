@@ -77,10 +77,10 @@ def add_habit():
 
 
 def remove_habit():
-    remove_habit_choice = input("Do you want to remove an habit ? (y/n): ").lower().strip()
     if not habits_list:
         print("No habits to remove. Returning to Habits menu...")
         return
+    remove_habit_choice = input("Do you want to remove an habit ? (y/n): ").lower().strip()
     if remove_habit_choice == 'n':
         print("Returning to Habits menu.")
         return
@@ -103,14 +103,13 @@ def remove_habit():
             print("Invalid habit number.")
         removed_habit = habits_list.pop(habit_index)
         print(f"Habit removed: {removed_habit[0]}")
-        while True:
-            retry_response = input("Do you want to remove another habit ? (y/n): " ).lower().strip()
-            if retry_response == 'y':
-                print("Restarting...")
-                continue
-            elif retry_response== 'n':
-                print("Returning to Habits menu...")
-                return
+        retry_response = input("Do you want to remove another habit ? (y/n): " ).lower().strip()
+        if retry_response == 'y':
+            print("Restarting...")
+            continue
+        elif retry_response== 'n':
+            print("Returning to Habits menu...")
+            return
 
 
 def update_habit():
