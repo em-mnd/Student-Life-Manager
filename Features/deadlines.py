@@ -158,8 +158,20 @@ def update_deadline():
 
 
 def view_deadlines():
-    pass
+    if not deadlines_list:
+        print("No deadlines available to view.\nReturning to Deadlines menu...")
+        return
+    print("======== DEADLINES =======")
 
+    for i, deadline in enumerate(deadlines_list):
+        print(
+            f"{i + 1}. {deadline[0]}\n"
+            f"    Priority: {deadline[1]}\n"
+            f"    Description: {deadline[2]}\n"
+            f"    Due date: {deadline[3]}\n"
+        )
+
+    print("=========================")
 
 def complete_deadline():
     pass
