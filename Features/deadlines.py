@@ -121,7 +121,41 @@ def remove_deadline():
             return
 
 def update_deadline():
-    pass
+    if not deadlines_list:
+        print('No deadlines to update.\nReturning to Deadlines menu...')
+        return
+    else:
+        update_deadline_choice = input("Do you want to update a deadline ? (y/n): ").lower().strip()
+        if update_deadline_choice == 'n':
+            print("Returning to Deadlines menu...")
+            return
+        if update_deadline_choice == 'y':
+            print('======== DEADLINES ========')
+            for i, deadline in enumerate(deadlines_list):
+                print(
+                    f"{i + 1}. {deadline[0]}\n"
+                    f"    Priority: {deadline[1]}\n"
+                    f"    Description: {deadline[2]}\n"
+                    f"    Due date: {deadline[3]}\n"
+                )
+            while True:
+                try:
+                    deadline_index = int(
+                        input("Enter the number of the deadline you want to update: ").lower().strip()
+                    ) - 1
+                except ValueError:
+                    print("Please enter the valid deadline number.")
+                    continue
+                if 0 <= deadline_index < len(deadlines_list):
+                    break
+                print("Invalid deadline number.")
+            while True:
+                deadline_name = input("Enter the new name of your deadline: ").strip()
+                if deadline_name == "":
+                    print("Please write a name for your habit.")
+                    continue
+                break
+
 
 def view_deadlines():
     pass
