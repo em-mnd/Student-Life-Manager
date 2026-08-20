@@ -42,35 +42,193 @@ def categories_menu():
             return
 
 def add_notes():
-    add_note_choice = input("Do you want to add a note ? (y/n): ").lower().strip()
+    add_note_choice = input(
+        "Do you want to add a note ? (y/n): "
+    ).lower().strip()
     if add_note_choice == 'n':
         print("Returning to Notes menu...")
         return
     if add_note_choice != 'y':
         print("Invalid input, returning to Notes menu...")
         return
-    if add_note_choice == 'y':
-        while True:
-            note_title = input("Enter the note title: ").strip()
-            if note_title == '':
-                print('Please enter a title for your note.')
-                continue
-            break
-        note_content = input(
-            "Write your note here: "
-        ).strip()
-        try:
-            len(note_content) > 100
-        except ValueError:
-            print("Your note exceeds the limited amount of characters.")
+    while True:
+        note_title = input("Enter the note title: ").strip()
+        if note_title == '':
+            print("Please enter a title for your note.")
             continue
-        else:
-            notes_list.append(note_content)
-            print('Your note has been added successfully !')
+        break
+    while True:
+        note_content = input(
+            "Write something for your note: "
+        ).strip()
+        if note_content == '':
+            print(
+                "Please write something for your note "
+                "(100 characters max.)"
+            )
+            continue
+        if len(note_content) > 100:
+            print(
+                "Please write a note with "
+                "100 characters or less."
+            )
+            continue
+        break
+    if not categories:
+        print(
+            "No categories available. "
+            "Creating default category 'General'..."
+        )
+        categories.append("General")
+    while True:
+        print("\n====== CATEGORIES ======")
+        for i, category in enumerate(categories, start=1):
+            print(f"{i}. {category}")
+        category_choice = input(
+            "\nChoose a category by number "
+            "(or type 'new' to create a new category): "
+        ).lower().strip()
+        if category_choice == "new":
+            add_category()
+            continue
+        if not category_choice.isdigit():
+            print(
+                "Please choose a category number "
+                "or type 'new'."
+            )
+            continue
+        category_index = int(category_choice) - 1
+        if (
+            category_index < 0
+            or category_index >= len(categories)
+        ):
+            print("That category does not exist.")
+            continue
+        note_category = categories[category_index]
+        break
+    creation_date = date.today()
+    note = {
+        "title": note_title,
+        "content": note_content,
+        "category": note_category,
+        "created_at": creation_date
+    }
+    notes_list.append(note)
+    print(
+        "\nYour note has been added successfully!"
+        f"\nTitle: {note_title}"
+        f"\nCategory: {note_category}"
+        f"\nCreated: {creation_date}"
+    )
 
+
+def add_notes():
+    add_note_choice = input(
+        "Do you want to add a note ? (y/n): "
+    ).lower().strip()
+    if add_note_choice == 'n':
+        print("Returning to Notes menu...")
+        return
+    if add_note_choice != 'y':
+        print("Invalid input, returning to Notes menu...")
+        return
+    while True:
+        note_title = input("Enter the note title: ").strip()
+        if note_title == '':
+            print("Please enter a title for your note.")
+            continue
+        break
+    while True:
+        note_content = input(
+            "Write something for your note: "
+        ).strip()
+        if note_content == '':
+            print(
+                "Please write something for your note "
+                "(100 characters max.)"
+            )
+            continue
+        if len(note_content) > 100:
+            print(
+                "Please write a note with "
+                "100 characters or less."
+            )
+            continue
+        break
+    if not categories:
+        print(
+            "No categories available. "
+            "Creating default category 'General'..."
+        )
+        categories.append("General")
+    while True:
+        print("\n====== CATEGORIES ======")
+        for i, category in enumerate(categories, start=1):
+            print(f"{i}. {category}")
+        category_choice = input(
+            "\nChoose a category by number "
+            "(or type 'new' to create a new category): "
+        ).lower().strip()
+        if category_choice == "new":
+            add_category()
+            continue
+        if not category_choice.isdigit():
+            print(
+                "Please choose a category number "
+                "or type 'new'."
+            )
+            continue
+        category_index = int(category_choice) - 1
+        if (
+            category_index < 0
+            or category_index >= len(categories)
+        ):
+            print("That category does not exist.")
+            continue
+        note_category = categories[category_index]
+        break
+    creation_date = date.today()
+    note = {
+        "title": note_title,
+        "content": note_content,
+        "category": note_category,
+        "created_at": creation_date
+    }
+    notes_list.append(note)
+    print(
+        "\nYour note has been added successfully!"
+        f"\nTitle: {note_title}"
+        f"\nCategory: {note_category}"
+        f"\nCreated: {creation_date}"
+    )
 
 
 def add_category():
-    pass
-# Categories : I'd rather have the notes separated, if i'd ever have to use a table it would be more efficient.
-# A limit of categories maybe ? Alphabetical order ?
+    while True:
+        category_name = input(
+            "Enter the name of your new category "
+            "(or 'b' to go back): "
+        ).strip()
+        if category_name.lower() == "b":
+            print("Category creation cancelled.")
+            return
+        if category_name == "":
+            print("Please enter a category name.")
+            continue
+        category_exists = False
+        for category in categories:
+            if category.lower() == category_name.lower():
+                category_exists = True
+                break
+        if category_exists:
+            print(
+                f"The category '{category_name}' "
+                "already exists."
+            )
+            continue
+        categories.append(category_name)
+        print(
+            f"Category '{category_name}' "
+            "has been added successfully!"
+        )
+        return
