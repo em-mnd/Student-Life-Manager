@@ -141,7 +141,7 @@ def update_deadline():
             while True:
                 try:
                     deadline_index = int(
-                        input("Enter the number of the deadline you want to update: ").lower().strip()
+                        input("Enter the number of the deadline you want to update: ").strip()
                     ) - 1
                 except ValueError:
                     print("Please enter the valid deadline number.")
@@ -152,7 +152,7 @@ def update_deadline():
             while True:
                 deadline_name = input("Enter the new name of your deadline: ").strip()
                 if deadline_name == "":
-                    print("Please write a name for your habit.")
+                    print("Please write a name for your deadline.")
                     continue
                 break
 
