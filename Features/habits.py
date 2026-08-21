@@ -29,6 +29,7 @@ def habits_menu():
             print('Exiting the Habits menu. Returning to main menu...')
             return
 
+
 def add_habit():
     add_habit_choice = input("Do you want to add an habit ? (y/n): ").lower()
     if add_habit_choice == 'n':
@@ -54,10 +55,10 @@ def add_habit():
                 continue
             break
         if habit_status == 'y':
-            completion_status = True
+            completion_status = 'Completed'
             print('You have completed this habit for today !')
         if habit_status == 'n':
-            completion_status = False
+            completion_status = 'Not completed'
             print('This habit has not been completed yet.')
         habits_list.append((habit_name, habit_priority, completion_status))
         print(
@@ -119,13 +120,15 @@ def update_habit():
     else:
         update_habit_response = input('Do you want to update a habit ? (y/n): ').lower().strip()
         if update_habit_response == 'y':
-            print('Here are the habits you have:')
+            print('\n======== HABITS ========\n')
             for i, habit in enumerate(habits_list):
                 print(
                     f"{i + 1}. {habit[0]}\n"
                     f"      {habit[1]}\n"
                     f"      {habit[2]}\n"
                     )
+            print ('\n=====================\n')
+
             while True:
                 try:
                     habit_index = int(
@@ -146,6 +149,7 @@ def update_habit():
                     print("Please write a name for your habit.")
                     continue
                 break
+            
 
 def view_habits():
     if not habits_list:
@@ -154,11 +158,10 @@ def view_habits():
     print('\n==== HABITS ====')
 
     for i, habit in enumerate(habits_list):
-        status = "Completed" if habit[2] else "Not complete"
         print(
             f"\n{i + 1}. {habit[0]}\n"
             f"    Priority : {habit[1]}"
-            f"    Status : {status}"
+            f"    Status : {completion_status}\n"
         )
 
     print("\n==============")
@@ -174,7 +177,7 @@ def complete_habit():
                 print(
                     f"\n{i + 1}. {habit[0]}\n"
                     f"    Priority : {habit[1]}\n"
-                    f"    Status : Not complete"
+                    f"    Status : {completion_status}\n"
                 )
             
             print("\n==============")
@@ -184,11 +187,18 @@ def complete_habit():
                         input('Enter the number of the habit you want to mark as completed: ')
                     ) - 1
                 except ValueError:
-                    print('Please enter a valid habit number.')
+                        print('Please enter a valid habit number.')
                     continue
-                if 0 <= habit_index < len(habits_list):
-                    break
-                
-                print('Invalid habit number.')
+                else:
+                    completion_status = 'Completed'
+                    habits_list.append(completion_status)
+                    print('You completed this habit, congrats !')
+                    print(
+                        #here i want to print the exact habit the user has chosen to complete but i don't know how to write that logic, the program surely remembers habit_index so i should get that, it would give me the user's habit.
+                        #completion_status is also a bit weird to grasp idk if i'm doing this right.
+                    )
+
+
+
             # I want to mark the habit as completed after the user inputs the right number but I don't know how to do so, myb use a class so that i can have 'Complete ?: False' then user says they completed the habit and it becomes 'True' and shows as 'Completed'.
 

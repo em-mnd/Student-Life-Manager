@@ -147,21 +147,23 @@ def update_deadline():
                     print("Please enter the valid deadline number.")
                     continue
                 if 0 <= deadline_index < len(deadlines_list):
-                    break
+                    break #i don't understand this, was it a copilot suggestion ? if yes, it's weird. Glad i removed copilot.
                 print("Invalid deadline number.")
             while True:
                 deadline_name = input("Enter the new name of your deadline: ").strip()
                 if deadline_name == "":
                     print("Please write a name for your deadline.")
                     continue
-                break
+                deadlines_list.append(deadline_name) #here iknow that the name has been updated, but will it keep the same description and priority level, as in its prior infos before changing the name ?
+                print("Habit updated successfully !")
 
+#what i think would have been the best is : instead of writing deadline[0] and so on, each term (e.g. Priority, Description) should have it's variable, that way it's more manageable. 
 
 def view_deadlines():
     if not deadlines_list:
         print("No deadlines available to view.\nReturning to Deadlines menu...")
         return
-    print("======== DEADLINES =======")
+    print("\n======== DEADLINES ========\n")
 
     for i, deadline in enumerate(deadlines_list):
         print(
@@ -171,8 +173,19 @@ def view_deadlines():
             f"    Due date: {deadline[3]}\n"
         )
 
-    print("=========================")
+    print("\n=========================\n")
+    sleep(15)
+    
+    while True:
+        exit_view = input("Press 'e' to go back to Deadlines menu.").lower().strip()
+            if exit_view != 'e':
+                print("Wrong key, please select 'e'.")
+                continue
+            else:
+                ('Returning to Deadlines menu...') #tried something i wanted to try for a while now, using keys to navigate or exit.
+
 
 def complete_deadline():
     pass
+#once i grasp this in habits.py i'll be able to use it here.
 
