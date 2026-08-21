@@ -157,7 +157,7 @@ def update_deadline():
                 deadlines_list.append(deadline_name) #here iknow that the name has been updated, but will it keep the same description and priority level, as in its prior infos before changing the name ?
                 print("Habit updated successfully !")
 
-#what i think would have been the best is : instead of writing deadline[0] and so on, each term (e.g. Priority, Description) should have it's variable, that way it's more manageable. 
+#what i think would have been the best is : instead of writing deadline[0] and so on, each term (e.g. Priority, Description) should have it's variable, that way it's more manageable.
 
 def view_deadlines():
     if not deadlines_list:
