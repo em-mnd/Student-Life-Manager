@@ -1,6 +1,7 @@
 from datetime import datetime, date
 
 # So as of now I still don't know how to manipulate dates, I still am figuring out how I will proceed to manage these deadlines.
+deadlines_list = []
 
 def deadlines_menu():
     while True:
@@ -22,7 +23,23 @@ def deadlines_menu():
             print('Exiting the Deadlines menu. Returning to main menu...')
             return
         
-deadlines_list = []
+def get_deadline_status(due_date):
+    today = date.today()
+    remaining_days = (due_date - today).days
+    if due_date < today:
+        return f"Overdue by {abs(remaining_days)} day(s)."
+    if due_date == today:
+        return "Due today."
+    return f"Pending - {remaining_days} day(s) remaining."
+
+def ask_for_due_date(prompt):
+    while True:
+        deadline_due_date = input(prompt).strip()
+        try:
+            return datetime.strptime(deadline_due_date, "%Y/%m/%d").date()
+        except ValueError:
+            print('Please enter a valid date using YYYY/MM/DD.')
+
 
 def add_deadline():
     add_deadline_choice = input("Do you want to add a deadline ? (y/n): ").lower()
