@@ -41,7 +41,7 @@ def categories_menu():
             print('Exiting Categories menu. Returning to Notes menu...')
             return
 
-def add_notes():
+def add_note():
     add_note_choice = input(
         "Do you want to add a note ? (y/n): "
     ).lower().strip()
@@ -49,89 +49,8 @@ def add_notes():
         print("Returning to Notes menu...")
         return
     if add_note_choice != 'y':
-        print("Invalid input, returning to Notes menu...")
-        return
-    while True:
-        note_title = input("Enter the note title: ").strip()
-        if note_title == '':
-            print("Please enter a title for your note.")
-            continue
-        break
-    while True:
-        note_content = input(
-            "Write something for your note: "
-        ).strip()
-        if note_content == '':
-            print(
-                "Please write something for your note "
-                "(100 characters max.)"
-            )
-            continue
-        if len(note_content) > 100:
-            print(
-                "Please write a note with "
-                "100 characters or less."
-            )
-            continue
-        break
-    if not categories:
-        print(
-            "No categories available. "
-            "Creating default category 'General'..."
-        )
-        categories.append("General")
-    while True:
-        print("\n====== CATEGORIES ======")
-        for i, category in enumerate(categories, start=1):
-            print(f"{i}. {category}")
-        category_choice = input(
-            "\nChoose a category by number "
-            "(or type 'new' to create a new category): "
-        ).lower().strip()
-        if category_choice == "new":
-            add_category()
-            continue
-        if not category_choice.isdigit():
-            print(
-                "Please choose a category number "
-                "or type 'new'."
-            )
-            continue
-        category_index = int(category_choice) - 1
-        if (
-            category_index < 0
-            or category_index >= len(categories)
-        ):
-            print("That category does not exist.")
-            continue
-        note_category = categories[category_index]
-        break
-    creation_date = date.today()
-    note = {
-        "title": note_title,
-        "content": note_content,
-        "category": note_category,
-        "created_at": creation_date
-    }
-    notes_list.append(note)
-    print(
-        "\nYour note has been added successfully!"
-        f"\nTitle: {note_title}"
-        f"\nCategory: {note_category}"
-        f"\nCreated: {creation_date}"
-    )
-
-
-def add_notes():
-    add_note_choice = input(
-        "Do you want to add a note ? (y/n): "
-    ).lower().strip()
-    if add_note_choice == 'n':
-        print("Returning to Notes menu...")
-        return
-    if add_note_choice != 'y':
-        print("Invalid input, returning to Notes menu...")
-        return
+        print("Please answer with 'y' or 'n'.")
+        continue
     while True:
         note_title = input("Enter the note title: ").strip()
         if note_title == '':
