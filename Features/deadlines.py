@@ -106,33 +106,48 @@ def remove_deadline():
     if remove_deadline_choice == 'n':
         print('Returning to Deadlines menu...')
         return
-    if remove_deadline_choice == 'y':
-        print('Here are the deadlines you have...')
-        for i, deadline in enumerate(deadlines_list):
+    if remove_deadline_choice != 'y':
+        print("Please answer with 'y' or 'no'.")
+        continue
+    
+    while True:
+        print("\n======== DEADLINES ========")
+        for i, deadline in enumerate(deadlines_list, start=1):
             print(
-                f"{i + 1}. {deadline[0]}\n"
+                f"\n{i}. {deadline[0]}\n"
                 f"    Priority: {deadline[1]}\n"
                 f"    Description: {deadline[2]}\n"
-                f"    Due date: {deadline[3]}\n"
+                f"    Due date: {deadline[3]}"
             )
+        print("\n===========================")
         while True:
             try:
-                deadline_index = int(input("Enter the number of the deadline you want to remove: ")) - 1
+                deadline_index = int(
+                    input("Enter the number of the deadline you want to remove: ")
+                ) - 1
             except ValueError:
-                print('Please enter a valid deadline number.')
+                print("Please enter a valid deadline number.")
                 continue
+            
             if 0 <= deadline_index < len(deadlines_list):
                 break
-            print("Invalid deadline number.")
+            print("Invalid deadline number") #does the user get to retry after this ?
         removed_deadline = deadlines_list.pop(deadline_index)
-        print(f"Deadline removed: {removed_deadline[0]}")
-        retry_response = input('Do you want to remove another deadline ? (y/n): ').lower().strip()
-        if retry_response == 'y':
-            print('Restarting...')
-            continue
-        elif retry_response =='n':
-            print("Returning to Deadlines menu...")
-            return
+        print(f"Deadline removed successfully: {removed_deadline[0]}")
+        
+        while True:
+            retry_response = input(
+            "Do you want to remove another deadline ? (y/n): "
+        ).lower().strip()
+            if retry_response == 'y':
+                print("Restarting...")
+                continue
+            if retry_response == 'n':
+                print("Returning to Deadlines menu...")
+                return
+            else:
+                print("Please answer with 'y' or 'n'.")
+                continue
 
 def update_deadline():
     if not deadlines_list:
