@@ -42,64 +42,61 @@ def ask_for_due_date(prompt):
 
 
 def add_deadline():
-    add_deadline_choice = input("Do you want to add a deadline ? (y/n): ").lower()
-    if add_deadline_choice == 'n':
-        print('Returning to Deadlines menu...')
-        return
-    if add_deadline_choice == 'y':
+    while True:
+        add_deadline_choice = input(
+            "Do you want to add a deadline ? (y/n): "
+        ).lower().strip()
+        if add_deadline_choice == 'n':
+            print("Returning to Deadlines menu...")
+            return
+        if add_deadlines_choice != 'y':
+            print("Please answer (y)es or (n)o.")
+            continue
         while True:
-            deadline_name = input("Enter the deadline name: ").strip()
-            if deadline_name == '':
-                print('Please write a name for your deadline.')
+            deadline_name = input("Enter the name of your deadline").strip()
+            if deadline_name == "":
+                print("Please provide a name for your deadline.")
                 continue
             break
         deadline_description = input(
-                    "Enter the task description (Can be left blank): "
-                ).strip()
+            "Enter a description for your deadline (Can be left blank): "
+        ).strip()
         while True:
-            deadline_priority = input("Enter the deadline priority (high/medium/low): ").lower().strip()
+            deadline_priority = input(
+                "What's the priority of your deadline ? (high/medium/low): "
+            ).lower().strip()
             if deadline_priority not in ["high", "medium", "low"]:
-                print('Please choose high, medium or low.')
+                print("Please choose high, medium or low.")
                 continue
             break
+        due_date = ask_for_due_date(
+            "Enter the due date of this deadline (YYYY/MM/DD): "
+        )
+        deadlines_list.append(
+            (deadline_name, deadline_priority, deadline_description, due_date)
+        )
+        status = get_deadline_status(due_date)
+        print(
+            "\nDeadline added successfully!\n"
+            f"Name: {deadline_name}\n"
+            f"Priority: {deadline_priority}\n"
+            f"Description: {deadline_description}\n"
+            f"Due date: {due_date}\n"
+            f"Status: {status}"
+        )
         while True:
-            deadline_due_date = input(
-                "Enter the due date of this deadline (YYYY/MM/DD): "
-            ).strip()
-            try:
-                due_date = datetime.strptime(
-                    deadline_due_date,
-                    "%Y/%m/%d"
-                ).date()
-            except ValueError:
-                print("Please enter a valid date using YYYY/MM/DD.")
+            retry_response = input(
+                "Do you want to add another deadline ? (y/n): "
+            ).lower().strip()
+            if retry_response == 'y':
+                print("Restarting....")
                 continue
-            break
-        remaining_days = (due_date - date.today()).days
-        today = date.today()
-        if due_date < today:
-            status = f"Overdue by {remaining_days} days"
-        elif due_date == today:
-            status = "Due today"
-        else:
-            status = f"Pending - {remaining_days} days remaining"
-    deadlines_list.append((deadline_name, deadline_priority, deadline_description, due_date))
-    print(
-        f"\nDeadline added successfully!\n"
-        f"Deadline added: {deadline_name}\n"
-        f"Priority level: {deadline_priority}\n"
-        f"Description: {deadline_description}\n"
-        f"Due date: {due_date}\n"
-        f"Status: {status}"
-    )
-    retry_response = input('Do you want to add another deadline ? (y/n): ').lower().strip()
-    while True:
-        if retry_response == "y":
-            print("Restarting...")
-            continue
-        elif retry_response == "n":
-            print("Returning to Deadlines menu...")
-            return
+            if retry_response == 'n':
+                print("Returning to Deadlines menu...")
+                return
+            else:
+                print("Please answer with 'y' or 'n'.")
+                continue
 
 def remove_deadline():
     if not deadlines_list:
