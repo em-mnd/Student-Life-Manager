@@ -151,67 +151,147 @@ def remove_deadline():
 
 def update_deadline():
     if not deadlines_list:
-        print('No deadlines to update.\nReturning to Deadlines menu...')
+        print("No deadlines to update.\nReturning to Deadlines menu...")
         return
-    else:
-        update_deadline_choice = input("Do you want to update a deadline ? (y/n): ").lower().strip()
-        if update_deadline_choice == 'n':
+
+    update_deadline_choice = input(
+        "Do you want to update a deadline? (y/n): "
+    ).lower().strip()
+
+    if update_deadline_choice == "n":
+        print("Returning to Deadlines menu...")
+        return
+    if update_deadline_choice != "y":
+        print("Invalid response. Returning to Deadlines menu...")
+        return
+
+    while True:
+        print("\n======== DEADLINES ========")
+        for i, deadline in enumerate(deadlines_list, start=1):
+            print(
+                f"\n{i}. {deadline[0]}\n"
+                f"    Priority: {deadline[1]}\n"
+                f"    Description: {deadline[2]}\n"
+                f"    Due date: {deadline[3]}"
+            )
+        print("\n===========================")
+
+        while True:
+            try:
+                deadline_index = int(
+                    input("Enter the number of the deadline you want to update: ")
+                ) - 1
+            except ValueError:
+                print("Please enter a valid deadline number.")
+                continue
+
+            if 0 <= deadline_index < len(deadlines_list):
+                break
+            print("Invalid deadline number.")
+
+        old_name, old_priority, old_description, old_due_date = deadlines_list[
+            deadline_index
+        ]
+
+        new_name = input(
+            f"Enter the new name (press Enter to keep '{old_name}'): "
+        ).strip()
+        if new_name == "":
+            new_name = old_name
+
+        new_description = input(
+            "Enter the new description "
+            "(press Enter to keep the current description): "
+        ).strip()
+        if new_description == "":
+            new_description = old_description
+
+        while True:
+            new_priority = input(
+                f"Enter the new priority (high/medium/low) "
+                f"or press Enter to keep '{old_priority}': "
+            ).lower().strip()
+
+            if new_priority == "":
+                new_priority = old_priority
+                break
+            if new_priority in ["high", "medium", "low"]:
+                break
+            print("Please choose high, medium or low.")
+
+        while True:
+            new_due_date_text = input(
+                f"Enter the new due date (YYYY/MM/DD) "
+                f"or press Enter to keep '{old_due_date}': "
+            ).strip()
+
+            if new_due_date_text == "":
+                new_due_date = old_due_date
+                break
+
+            try:
+                new_due_date = datetime.strptime(
+                    new_due_date_text, "%Y/%m/%d"
+                ).date()
+                break
+            except ValueError:
+                print("Please enter a valid date using YYYY/MM/DD.")
+
+        deadlines_list[deadline_index] = (
+            new_name,
+            new_priority,
+            new_description,
+            new_due_date,
+        )
+
+        print(
+            "\nDeadline updated successfully!\n"
+            f"Name: {new_name}\n"
+            f"Priority: {new_priority}\n"
+            f"Description: {new_description}\n"
+            f"Due date: {new_due_date}\n"
+            f"Status: {get_deadline_status(new_due_date)}"
+        )
+
+        retry_response = input(
+            "Do you want to update another deadline? (y/n): "
+        ).lower().strip()
+
+        if retry_response == "y":
+            print("Restarting...")
+            continue
+        if retry_response == "n":
             print("Returning to Deadlines menu...")
             return
-        if update_deadline_choice == 'y':
-            print('======== DEADLINES ========')
-            for i, deadline in enumerate(deadlines_list):
-                print(
-                    f"{i + 1}. {deadline[0]}\n"
-                    f"    Priority: {deadline[1]}\n"
-                    f"    Description: {deadline[2]}\n"
-                    f"    Due date: {deadline[3]}\n"
-                )
-            while True:
-                try:
-                    deadline_index = int(
-                        input("Enter the number of the deadline you want to update: ").strip()
-                    ) - 1
-                except ValueError:
-                    print("Please enter the valid deadline number.")
-                    continue
-                if 0 <= deadline_index < len(deadlines_list):
-                    break #i don't understand this, was it a copilot suggestion ? if yes, it's weird. Glad i removed copilot.
-                print("Invalid deadline number.")
-            while True:
-                deadline_name = input("Enter the new name of your deadline: ").strip()
-                if deadline_name == "":
-                    print("Please write a name for your deadline.")
-                    continue
-                deadlines_list.append(deadline_name) #here i know that the name has been updated, but will it keep the same description and priority level, as in its prior infos before changing the name ?
-                print("Habit updated successfully !")
 
-#what i think would have been the best is : instead of writing deadline[0] and so on, each term (e.g. Priority, Description) should have it's variable, that way it's more manageable.
+        print("Invalid response. Returning to Deadlines menu...")
+        return
 
 def view_deadlines():
+    def view_deadlines():
     if not deadlines_list:
         print("No deadlines available to view.\nReturning to Deadlines menu...")
         return
-    print("\n======== DEADLINES ========\n")
-
-    for i, deadline in enumerate(deadlines_list):
+    print("\n======== DEADLINES ========")
+    for i, deadline in enumerate(deadlines_list, start=1):
         print(
-            f"{i + 1}. {deadline[0]}\n"
+            f"\n{i}. {deadline[0]}\n"
             f"    Priority: {deadline[1]}\n"
             f"    Description: {deadline[2]}\n"
             f"    Due date: {deadline[3]}\n"
+            f"    Status: {get_deadline_status(deadline[3])}"
         )
-
-    print("\n=========================\n")
-    sleep(15)
-    
+    print("\n===========================")
     while True:
-        exit_view = input("Press 'e' to go back to Deadlines menu.").lower().strip()
-            if exit_view != 'e':
-                print("Wrong key, please select 'e'.")
-                continue
-            else:
-                ('Returning to Deadlines menu...') #tried something i wanted to try for a while now, using keys to navigate or exit.
+        exit_view = input(
+            "Press 'e' to go back to Deadlines menu: "
+        ).lower().strip()
+
+        if exit_view == "e":
+            print("Returning to Deadlines menu...")
+            return
+
+        print("Wrong key, please select 'e'.")
 
 
 def complete_deadline():
