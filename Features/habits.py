@@ -105,12 +105,13 @@ def remove_habit():
         removed_habit = habits_list.pop(habit_index)
         print(f"Habit removed: {removed_habit[0]}")
         retry_response = input("Do you want to remove another habit ? (y/n): " ).lower().strip()
-        if retry_response == 'y':
-            print("Restarting...")
-            continue
-        elif retry_response== 'n':
-            print("Returning to Habits menu...")
-            return
+        while True:
+            if retry_response == 'y':
+                print("Restarting...")
+                continue
+            elif retry_response== 'n':
+                print("Returning to Habits menu...")
+                return
 
 
 def update_habit():
@@ -152,6 +153,7 @@ def update_habit():
             
 
 def view_habits():
+    completion_status = 
     if not habits_list:
         print('No habits available to view.\nReturning to Habits menu...')
         return
@@ -188,7 +190,6 @@ def complete_habit():
                     ) - 1
                 except ValueError:
                         print('Please enter a valid habit number.')
-                    continue
                 else:
                     completion_status = 'Completed'
                     habits_list.append(completion_status)

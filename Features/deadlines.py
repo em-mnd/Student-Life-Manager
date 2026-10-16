@@ -49,7 +49,7 @@ def add_deadline():
         if add_deadline_choice == 'n':
             print("Returning to Deadlines menu...")
             return
-        if add_deadlines_choice != 'y':
+        if add_deadline_choice != 'y':
             print("Please answer (y)es or (n)o.")
             continue
         while True:
@@ -103,13 +103,14 @@ def remove_deadline():
         print("No deadlines available. Returning to Deadlines menu...")
         return
     remove_deadline_choice = input('Do you want to remove a deadline ? (y/n): ').strip().lower()
-    if remove_deadline_choice == 'n':
-        print('Returning to Deadlines menu...')
-        return
-    if remove_deadline_choice != 'y':
-        print("Please answer with 'y' or 'no'.")
-        continue
-    
+    while True:
+        if remove_deadline_choice == 'n':
+            print('Returning to Deadlines menu...')
+            return
+        if remove_deadline_choice != 'y':
+            print("Please answer with 'y' or 'n'.")
+            continue
+        break
     while True:
         print("\n======== DEADLINES ========")
         for i, deadline in enumerate(deadlines_list, start=1):
@@ -269,9 +270,9 @@ def update_deadline():
 
 def view_deadlines():
     def view_deadlines():
-    if not deadlines_list:
-        print("No deadlines available to view.\nReturning to Deadlines menu...")
-        return
+        if not deadlines_list:
+            print("No deadlines available to view.\nReturning to Deadlines menu...")
+            return
     print("\n======== DEADLINES ========")
     for i, deadline in enumerate(deadlines_list, start=1):
         print(
