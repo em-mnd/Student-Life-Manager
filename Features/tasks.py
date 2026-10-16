@@ -94,12 +94,13 @@ def remove_task():
         removed_task = tasks_list.pop(task_index)
         print(f"Task removed: {removed_task[0]}")
         retry_response = input("Do you want to remove another task? (y/n): ").lower().strip()
-        if retry_response == "y":
-            print("Restarting function...")
-            continue
-        elif retry_response == "n":
-            print("Returning to Tasks menu...")
-            return
+        while True:
+            if retry_response == "y":
+                print("Restarting function...")
+                continue
+            elif retry_response == "n":
+                print("Returning to Tasks menu...")
+                return
     elif remove_task_response.lower() == "n":
         print("Returning to Tasks menu.")
         return

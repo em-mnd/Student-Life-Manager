@@ -59,7 +59,7 @@ def add_note():
         break
     while True:
         note_content = input(
-            "Write something for your note: "
+            "Write here: "
         ).strip()
         if note_content == '':
             print(
